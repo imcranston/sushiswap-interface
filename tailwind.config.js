@@ -21,6 +21,7 @@ module.exports = {
         colors: {
           'blue-pink': ['#27B0E6', '#FA52A0'],
           'pink-red-light-brown': ['#FE5A75', '#FEC464'],
+          'blue-pink-v2': ['#0993ec', '#f338c3'],
         },
         background: {
           'dark-1000': '#0D0415',
