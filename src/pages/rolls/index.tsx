@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 import Card from '../../components/Card'
+import Image from 'next/image'
+import Input from '../../components/Input'
 
 const Section: React.FC<{ className?: string }> = ({ className, children }) => {
   return <div className={`flex w-full ${className}`}>{children}</div>
@@ -75,6 +77,37 @@ const BountyCard: React.FC<Bounty> = ({ skill, title, creation, numOfApplicants,
   )
 }
 
+const SmallCard: React.FC<{ title: string; sub: string }> = ({ title, sub }) => (
+  <div className="w-48 h-32 p-4 m-2 text-center border border-transparent rounded-lg bg-dark-900">
+    <div className="mt-3 mb-1 text-lg font-bold text-white">{title}</div>
+    <div className="text-white text-md">{sub}</div>
+  </div>
+)
+
+const SmallCardTwo: React.FC<{ title: string; sub: string }> = ({ title, sub }) => (
+  <div className="w-56 h-24 pt-2 pb-2 m-2 text-center border border-transparent rounded-lg bg-dark-900">
+    <div className="mt-3 mb-1 text-lg font-bold text-white">{title}</div>
+    <div className="text-white text-md">{sub}</div>
+  </div>
+)
+
+const UserPreview: React.FC<{ name: string; title: string; twitterHandle?: string }> = ({
+  name,
+  title,
+  twitterHandle,
+}) => (
+  <div className="flex flex-col items-center m-8">
+    <svg height={150} width={150}>
+      <circle cx="50%" cy="50%" r="75" fill="black" />
+    </svg>
+    <div className="mt-2 text-lg font-bold">{name}</div>
+    <div className="mt-1 text-md">{title}</div>
+    <a href={`https://twitter.com/${twitterHandle}`} target="_blank" rel="noreferrer noopener" className="mt-2">
+      <Image src="/images/miso/trident/trident_twitter.svg" width={16} height={16} alt="twitter_logo" />
+    </a>
+  </div>
+)
+
 const Rolls = () => {
   return (
     <>
@@ -87,11 +120,15 @@ const Rolls = () => {
         <Button className="mt-6">Get Involved</Button>
       </Section>
 
-      <Section className="relative flex-wrap justify-center mt-4 ml-8 mr-8 space-x-4 overflow-x-auto md:space-x-8 md:-mt-14">
-        <StatsCard title="Protocol Treasury" value="$420,000" />
-        <StatsCard title="Funded Bounties" value="42" />
-        <StatsCard title="Contributors" value="20" />
-        <StatsCard title="Total Rewards" value="$60,000" />
+      <Section className="flex flex-row flex-wrap justify-center mt-4 md:-mt-16">
+        <div className="flex flex-row">
+          <SmallCardTwo title="$420,000" sub="Protocol Treasury" />
+          <SmallCardTwo title="42" sub="Funded Bounties" />
+        </div>
+        <div className="flex flex-row">
+          <SmallCardTwo title="20" sub="Contributors" />
+          <SmallCardTwo title="$60,000" sub="Total Rewards" />
+        </div>
       </Section>
 
       <Section className="flex-col items-center pl-8 pr-8 mt-8 space-y-4 sm:space-y-0 sm:ml-4 sm:mr-4 sm:justify-center sm:space-x-2 md:space-x-8 sm:flex-row bg-dark-1000">
@@ -102,20 +139,20 @@ const Rolls = () => {
       </Section>
 
       <Section className="flex justify-center">
-        <Card className="w-full p-8 m-4 mt-8 bg-dark-900 max-w-7xl">
+        <Card className="w-full p-8 m-4 mt-8 max-w-screen-2xl bg-dark-900">
           <div className="mb-1 font-bold text-white">Have an idea of fix? Request it!</div>
           <div className="mb-4">Input ideas, request a feature or report a fix!</div>
           <Button className="bg-dark-1000">Contribute your Ideas</Button>
         </Card>
       </Section>
 
-      <Section className="flex-col p-8 max-w-64">
+      <Section className="flex-col pt-8 pb-8 max-w-64">
         <div className="flex flex-row items-center">
           <div className="mr-6 text-lg text-white">The latest engineering bounties from Sushi</div>
           <div className="text-sm text-white underline">Apply Today</div>
         </div>
 
-        <div className="flex flex-row mt-4 space-x-8 overflow-x-auto">
+        <div className="flex flex-row mt-4 ml-2 mr-2 space-x-5 overflow-x-auto">
           <BountyCard
             reward={500}
             tag="Frontend"
@@ -162,6 +199,103 @@ const Rolls = () => {
             isFavorite={false}
           />
         </div>
+      </Section>
+
+      <Section className="flex-col mt-8 text-center">
+        <div className="mb-2 text-3xl font-bold text-white">How to Contribute to Sushi</div>
+        <div className="mb-4 text-white text-md">
+          Not sure how to get started? Here&apos;s some information on the process
+        </div>
+        <div className="flex flex-row flex-wrap justify-center">
+          <SmallCard title="Create a profile" sub="List your skills & strengths" />
+          <SmallCard title="Find a Bounty" sub="Search for bounties & match your skills" />
+          <SmallCard title="Apply" sub="Share your profile with the Sushi Team" />
+          <SmallCard title="Contribute" sub="Complete the bounty tasks" />
+          <SmallCard title="Get Paid" sub="Submit work & receive tokens" />
+        </div>
+      </Section>
+
+      <Section className="flex-col items-center p-8 mt-8">
+        <div className="mb-2 text-3xl font-bold text-white">Get Started Today!</div>
+        <div className="mb-4 text-white text-md">Create a profile & show off your skills!</div>
+        <Button>Create your profile</Button>
+        <div className="flex flex-row flex-wrap mt-4">
+          <UserPreview name="Moses" title="UX Designer" />
+          <UserPreview name="Ivy" title="UX Designer" />
+          <UserPreview name="Moses" title="UX Designer" />
+          <UserPreview name="Moses" title="UX Designer" />
+          <UserPreview name="Moses" title="UX Designer" />
+        </div>
+      </Section>
+
+      <Section className="flex-col pt-8 pb-8 max-w-64">
+        <div className="flex flex-row items-center">
+          <div className="mr-6 text-lg text-white">The latest non-code bounties from Sushi</div>
+          <div className="text-sm text-white underline">Apply Today</div>
+        </div>
+
+        <div className="flex flex-row mt-4 ml-2 mr-2 space-x-5 overflow-x-auto">
+          <BountyCard
+            reward={500}
+            tag="Frontend"
+            skill="Intermediate"
+            title="Mobile MISO UI"
+            creation="19 hours ago"
+            numOfApplicants={12}
+            isFavorite={false}
+          />
+          <BountyCard
+            reward={500}
+            tag="Frontend"
+            skill="Intermediate"
+            title="Mobile MISO UI"
+            creation="19 hours ago"
+            numOfApplicants={12}
+            isFavorite={false}
+          />
+          <BountyCard
+            reward={500}
+            tag="Frontend"
+            skill="Intermediate"
+            title="Mobile MISO UI"
+            creation="19 hours ago"
+            numOfApplicants={12}
+            isFavorite={false}
+          />
+          <BountyCard
+            reward={500}
+            tag="Frontend"
+            skill="Intermediate"
+            title="Mobile MISO UI"
+            creation="19 hours ago"
+            numOfApplicants={12}
+            isFavorite={false}
+          />
+          <BountyCard
+            reward={500}
+            tag="Frontend"
+            skill="Intermediate"
+            title="Mobile MISO UI"
+            creation="19 hours ago"
+            numOfApplicants={12}
+            isFavorite={false}
+          />
+        </div>
+      </Section>
+
+      <Section className="">
+        <Card className="flex flex-row w-full bg-dark-900">
+          <div>
+            <div>Don&apos;t miss a beat</div>
+            <div>
+              Sign up to receive emails when there&apos;s a new hiring opportunities, active bounties, and proposals.
+            </div>
+          </div>
+
+          <div>
+            <input type="text" id="name" name="name" required />
+          </div>
+        </Card>
       </Section>
     </>
   )
