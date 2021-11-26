@@ -10,7 +10,7 @@ const Section: React.FC<{ className?: string }> = ({ className, children }) => {
 const Button: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, children }) => {
   return (
     <button
-      className={`w-max flex flex-row items-center p-6 border border-transparent rounded-lg max-h-12 bg-dark-900 text-white border-gradient-r-blue-pink-v2-dark-900 ${className}`}
+      className={`w-max flex flex-row items-center border border-transparent rounded-lg max-h-12 bg-dark-900 text-white border-gradient-r-blue-pink-v2-dark-900 ${className}`}
     >
       {children}
     </button>
@@ -96,7 +96,7 @@ const UserPreview: React.FC<{ name: string; title: string; twitterHandle?: strin
   title,
   twitterHandle,
 }) => (
-  <div className="flex flex-col items-center m-8">
+  <div className="flex flex-col items-center m-4">
     <svg height={150} width={150}>
       <circle cx="50%" cy="50%" r="75" fill="black" />
     </svg>
@@ -117,7 +117,7 @@ const Rolls = () => {
           SUSHI has pride ourselves of being community first from day one. Explore how you can get connected to the
           community, contribute with your skills and get earn
         </div>
-        <Button className="mt-6">Get Involved</Button>
+        <Button className="p-4 mt-6">Get Involved</Button>
       </Section>
 
       <Section className="flex flex-row flex-wrap justify-center mt-4 md:-mt-16">
@@ -142,13 +142,13 @@ const Rolls = () => {
         <Card className="w-full p-8 m-4 mt-8 max-w-screen-2xl bg-dark-900">
           <div className="mb-1 font-bold text-white">Have an idea of fix? Request it!</div>
           <div className="mb-4">Input ideas, request a feature or report a fix!</div>
-          <Button className="bg-dark-1000">Contribute your Ideas</Button>
+          <Button className="p-4 bg-dark-1000">Contribute your Ideas</Button>
         </Card>
       </Section>
 
       <Section className="flex-col pt-8 pb-8 max-w-64">
         <div className="flex flex-row items-center">
-          <div className="mr-6 text-lg text-white">The latest engineering bounties from Sushi</div>
+          <div className="ml-4 mr-6 text-lg text-white">The latest engineering bounties from Sushi</div>
           <div className="text-sm text-white underline">Apply Today</div>
         </div>
 
@@ -218,7 +218,7 @@ const Rolls = () => {
       <Section className="flex-col items-center p-8 mt-8">
         <div className="mb-2 text-3xl font-bold text-white">Get Started Today!</div>
         <div className="mb-4 text-white text-md">Create a profile & show off your skills!</div>
-        <Button>Create your profile</Button>
+        <Button className="p-4">Create your profile</Button>
         <div className="flex flex-row flex-wrap mt-4">
           <UserPreview name="Moses" title="UX Designer" />
           <UserPreview name="Ivy" title="UX Designer" />
@@ -230,7 +230,7 @@ const Rolls = () => {
 
       <Section className="flex-col pt-8 pb-8 max-w-64">
         <div className="flex flex-row items-center">
-          <div className="mr-6 text-lg text-white">The latest non-code bounties from Sushi</div>
+          <div className="ml-4 mr-6 text-lg text-white">The latest non-code bounties from Sushi</div>
           <div className="text-sm text-white underline">Apply Today</div>
         </div>
 
@@ -283,18 +283,40 @@ const Rolls = () => {
         </div>
       </Section>
 
-      <Section className="">
-        <Card className="flex flex-row w-full bg-dark-900">
-          <div>
-            <div>Don&apos;t miss a beat</div>
-            <div>
+      <Section>
+        <div className="flex flex-row flex-wrap items-center w-full p-8 m-2 bg-dark-900 rounded-xl">
+          <div className="w-1/2 mr-auto">
+            <div className="mb-2 text-3xl font-bold text-white w-96">Don&apos;t miss a beat</div>
+            <div className="text-white w-96 text-md">
               Sign up to receive emails when there&apos;s a new hiring opportunities, active bounties, and proposals.
             </div>
           </div>
 
-          <div>
-            <input type="text" id="name" name="name" required />
+          <div className="flex flex-row flex-grow mt-4 w-96">
+            <input type="text" className="flex-grow pl-2 pr-2 mr-2 text-black rounded" />
+
+            <Button className="p-2 text-sm">Sign up</Button>
           </div>
+        </div>
+      </Section>
+
+      <Section className="flex-row flex-wrap justify-center mt-4">
+        <Card className="flex flex-col p-4 m-2 w-max bg-dark-900 h-96">
+          <div className="mt-12 mb-4 text-white">For Sushi Core Teams & Partners</div>
+          <div className="mb-4 text-3xl font-bold text-white">Post a Bounty</div>
+          <div className="mb-4 text-white w-96">
+            Post new challenges and projects for our community members to tackle
+          </div>
+          <Button className="p-4">Start here</Button>
+        </Card>
+
+        <Card className="flex flex-col p-4 m-2 w-max bg-dark-900 h-96">
+          <div className="mt-12 mb-2 text-white">For community members</div>
+          <div className="mb-4 text-3xl font-bold text-white">Find Project Contributors</div>
+          <div className="mb-4 text-white w-96">
+            Looking for other team members with skillsets you need to tackle a problem?
+          </div>
+          <Button className="p-4">Start here</Button>
         </Card>
       </Section>
     </>
