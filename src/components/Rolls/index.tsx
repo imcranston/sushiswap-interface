@@ -24,6 +24,7 @@ import { classNames } from '../../functions'
 import { Search as SearchIcon } from 'react-feather'
 import { useFuse } from '../../hooks'
 import Card from '../../components/Card'
+import Input from '../../components/Input'
 
 // import { ExternalLink, NavLink } from "./Link";
 // import { ReactComponent as Burger } from "../assets/images/burger.svg";
@@ -76,6 +77,20 @@ function ContentHeader({ bounties = [] }): JSX.Element {
         inputProps={{ className: 'placeholder-primary bg-opacity-50 w-full py-3 pl-4 pr-14 rounded bg-dark-900' }}
         className="border shadow-2xl border-dark-800"
       />
+      {bounties?.map((bounty, index) => (
+        <BountyCardLite
+          key={index}
+          reward={bounty.reward}
+          tags={bounty.tags}
+          skill={bounty.skill}
+          skillLevel={bounty.skillLevel}
+          title={bounty.title}
+          project={bounty.project}
+          createdAt={bounty.createdAt}
+          numOfApplicants={bounty.numOfApplicants}
+          isFavorite={bounty.isFavorite}
+        />
+      ))}
     </div>
   )
 }
@@ -155,13 +170,14 @@ function BountyCard({
   title,
   description,
   tags,
-  skill,
-  reward,
-  estimatedTime,
-  startDate,
-  difficulty,
+  project,
   createdAt,
-  applicants,
+  startDate,
+  estimatedTime,
+  skill,
+  skillLevel,
+  reward,
+  numOfApplicants,
   isFavorite,
 }): JSX.Element {
   return (
@@ -171,6 +187,9 @@ function BountyCard({
       </Typography>
       <Typography variant="h3" className={'text-low-emphesis'}>
         {skill}
+      </Typography>
+      <Typography variant="h3" className={'text-low-emphesis'}>
+        {skillLevel}
       </Typography>
       <Typography variant="xs" className={'text-low-emphesis'}>
         {reward}
@@ -182,13 +201,13 @@ function BountyCard({
         {startDate}
       </Typography>
       <Typography variant="xs" className={'text-low-emphesis'}>
-        {difficulty}
+        {project}
       </Typography>
       <Typography variant="xs" className={'text-low-emphesis'}>
         {createdAt}
       </Typography>
       <Typography variant="xs" className={'text-low-emphesis'}>
-        {applicants}
+        {numOfApplicants}
       </Typography>
       <Typography variant="sm" className={'text-primary'}>
         {description}
@@ -209,22 +228,10 @@ const Section: React.FC<{ className?: string }> = ({ className, children }) => {
 const Button: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, children }) => {
   return (
     <button
-      className={`w-max flex flex-row items-center p-6 border border-transparent rounded-lg max-h-12 bg-dark-900 text-white border-gradient-r-blue-pink-v2-dark-900 ${className}`}
+      className={`w-max flex flex-row items-center border border-transparent rounded-lg max-h-12 bg-dark-900 text-white border-gradient-r-blue-pink-v2-dark-900 ${className}`}
     >
       {children}
     </button>
-  )
-}
-
-const StatsCard: React.FC<{ title: string; value: string } & React.HTMLAttributes<HTMLDivElement>> = ({
-  title,
-  value,
-}) => {
-  return (
-    <Card className="flex flex-col justify-center p-4 m-2 text-center sm:p-0 bg-dark-900">
-      <div className="mb-1 font-bold text-white">{value}</div>
-      <div className="">{title}</div>
-    </Card>
   )
 }
 
@@ -278,23 +285,28 @@ const BountyList: React.FC<{ bounties: Bounty[] }> = ({ children, bounties }) =>
 }
 
 interface Bounty {
-  skill: 'Beginner' | 'Intermediate' | 'Advanced'
+  skill: 'Frontend' | 'Solidity'
+  skillLevel: 'Beginner' | 'Intermediate' | 'Advanced'
   title: string
-  // description,
-  // tags,
-  creation: string
+  project: string
   numOfApplicants: number
-  tag: 'Frontend' | 'Solidity'
+  tags: 'Design' | 'Development'
   reward: number
-  // estimatedTime,
-  // startDate,
-  // difficulty,
-  // createdAt,
-  // applicants,
   isFavorite: boolean
+  createdAt: any
 }
 
-const BountyCardLite: React.FC<Bounty> = ({ skill, title, creation, numOfApplicants, tag, reward, isFavorite }) => {
+const BountyCardLite: React.FC<Bounty> = ({
+  skill,
+  skillLevel,
+  title,
+  project,
+  numOfApplicants,
+  createdAt,
+  tags,
+  reward,
+  isFavorite,
+}) => {
   return (
     <div className="flex flex-col justify-center p-4 rounded min-w-max w-max bg-dark-900 h-36">
       <div className="flex flex-row items-center">
@@ -308,7 +320,7 @@ const BountyCardLite: React.FC<Bounty> = ({ skill, title, creation, numOfApplica
           <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue to-pink">
             {title}
           </h1>
-          <div>{`${creation} | ${numOfApplicants} Applicants`}</div>
+          <div>{`${project} | ${numOfApplicants} Applicants`}</div>
         </div>
         <div className="p-1 pl-4 pr-4 -mt-16 text-sm text-white border border-transparent rounded-2xl bg-dark-500 border-gradient-r-blue-pink-v2-dark-900">
           Design
@@ -321,6 +333,37 @@ const BountyCardLite: React.FC<Bounty> = ({ skill, title, creation, numOfApplica
   )
 }
 
+const SmallCard: React.FC<{ title: string; sub: string }> = ({ title, sub }) => (
+  <div className="w-48 h-32 p-4 m-2 text-center border border-transparent rounded-lg bg-dark-900">
+    <div className="mt-3 mb-1 text-lg font-bold text-white">{title}</div>
+    <div className="text-white text-md">{sub}</div>
+  </div>
+)
+
+const SmallCardTwo: React.FC<{ title: string; sub: string }> = ({ title, sub }) => (
+  <div className="w-56 h-24 pt-2 pb-2 m-2 text-center border border-transparent rounded-lg bg-dark-900">
+    <div className="mt-3 mb-1 text-lg font-bold text-white">{title}</div>
+    <div className="text-white text-md">{sub}</div>
+  </div>
+)
+
+const UserPreview: React.FC<{ name: string; title: string; twitterHandle?: string }> = ({
+  name,
+  title,
+  twitterHandle,
+}) => (
+  <div className="flex flex-col items-center m-4">
+    <svg height={150} width={150}>
+      <circle cx="50%" cy="50%" r="75" fill="black" />
+    </svg>
+    <div className="mt-2 text-lg font-bold">{name}</div>
+    <div className="mt-1 text-md">{title}</div>
+    <a href={`https://twitter.com/${twitterHandle}`} target="_blank" rel="noreferrer noopener" className="mt-2">
+      <Image src="/images/miso/trident/trident_twitter.svg" width={16} height={16} alt="twitter_logo" />
+    </a>
+  </div>
+)
+
 export {
   SideBar,
   ContentHeader,
@@ -329,7 +372,9 @@ export {
   BountyCardLite,
   BountyList,
   BlockCard,
-  StatsCard,
+  UserPreview,
+  SmallCard,
+  SmallCardTwo,
   Button,
   Section,
 }
