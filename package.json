@@ -177,5 +177,9 @@
     "not ie 11",
     "not dead",
     "not op_mini all"
-  ]
+  ],
+  "dependencies": {
+    "apollo-server-micro": "^3.5.0",
+    "micro": "^9.3.4"
+  }
 }
