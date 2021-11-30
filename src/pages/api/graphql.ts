@@ -1,54 +1,6 @@
-import { ApolloServer, gql } from 'apollo-server-micro'
+import { ApolloServer } from 'apollo-server-micro'
 import { PageConfig } from 'next'
-
-const typeDefs = gql`
-  type Account {
-    address: String
-    nonce: Int
-    provider: String
-    providerAccountId: String
-    user: User
-  }
-
-  type User {
-    id: String
-    name: String
-    email: String
-    emailVerified: Int
-    account: Account
-  }
-
-  enum SkillLevel {
-    Beginner
-    Intermediate
-    Advanced
-  }
-
-  enum AcceptedRewards {
-    ETH
-    SUSHI
-    USDC
-    DAI
-  }
-
-  type Query {
-    bounties: [Bounty]!
-  }
-
-  type Bounty {
-    id: Int!
-    title: String!
-    description: String!
-    project: String
-    skill: String
-    skillLevel: SkillLevel
-    reward: Int
-    rewardDenomination: AcceptedRewards
-    numOfApplicants: Int
-    createdAt: Int
-    tags: [String]
-  }
-`
+import typeDefs from '../../services/rolls/constants/gqlTypeDefs'
 
 const resolvers = {
   Query: {
