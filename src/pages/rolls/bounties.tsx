@@ -100,7 +100,7 @@ export default function BountiesPage({ fallbackData }) {
         <title>Rolls | Sushi</title>
         <meta key="description" name="description" content="Roles..." />
       </Head>
-      <Section className="w-full max-w-6xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto">
         {/* <Typography component="h1" variant="h1" className="w-full mb-4">
           Sushi Rolls
         </Typography>
@@ -117,9 +117,11 @@ export default function BountiesPage({ fallbackData }) {
         </div> */}
         {/* <BreadCrumbBar /> */}
         <ContentHeader bounties={mockBounties} />
-        {/* <SideBar /> */}
-        {/* <BountyList bounties={mockBounties} /> */}
-      </Section>
+        <div className="flex flex-row mt-4 ml-2 mr-2 space-x-2 overflow-x-auto">
+          <SideBar />
+          <BountyList bounties={mockBounties} totalBounties={30} />
+        </div>
+      </div>
     </Container>
   )
 }
