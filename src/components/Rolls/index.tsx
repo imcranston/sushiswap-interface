@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-// import More from './More'
 import { Popover } from '@headlessui/react'
 import QuestionHelper from '../QuestionHelper'
 import { t } from '@lingui/macro'
@@ -16,7 +15,6 @@ import { useFuse } from '../../hooks'
 import Card from '../../components/Card'
 import Checkbox from '../Checkbox'
 import NeonSelect, { NeonSelectItem } from '../Select'
-import { check } from 'prettier'
 
 interface Bounty {
   title?: string
@@ -475,7 +473,11 @@ const BountyCard: React.FC<{
     </div>
   )
 }
-const BountyList: React.FC<{ bounties: any; totalBounties: number }> = ({ children, bounties, totalBounties }) => {
+const BountyList: React.FC<{ bounties: any; totalBounties: number }> = ({
+  children,
+  bounties,
+  totalBounties,
+}): JSX.Element => {
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between w-full">
