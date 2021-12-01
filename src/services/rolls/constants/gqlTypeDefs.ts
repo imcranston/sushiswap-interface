@@ -1,45 +1,57 @@
-import { gql } from 'apollo-server-core'
+import { gql } from 'graphql-tag'
 
 const typeDefs = gql`
-  type Contact {
+  type Profile {
+    id: String!
+    address: String!
+    name: String!
+
+    title: String
+    bio: String
+    skillTags: [String]
+
     email: String
     discord: String
     twitter: String
-    emailVerified: Boolean
+    github: String
+    medium: String
+    emailVerified: Boolean!
+
+    previousBounties: [Bounty]!
+    previousApplications: [Application]!
   }
 
-  type ENS {
-    domain: String
-    image: String
-  }
+  type Application {
+    id: Int!
+    userId: Int!
+    reason: String
+    status: String!
 
-  type Profile {
-    id: String
-    address: String
-    name: String
-    bio: String
-    contact: Contact
-    ens: ENS
-    skillTags: [String]
-    previousBounties: [Bounty]
+    # Work
+    workUrl: String
+    workDescription: String
+    hoursWorked: Int
   }
 
   type Bounty {
     id: Int!
-    title: String!
-    summary: String!
+    project: String!
+    skill: String!
+    skillLevel: String!
+    reward: Int!
+    rewardDenomination: String!
+    createdAt: Int! # unix timestamp
+    tags: [String]!
+
+    title: String
+    summary: String
     tasks: String
-    project: String
-    skill: String
-    skillLevel: String
-    reward: Int
-    rewardDenomination: String
-    numOfApplicants: Int
-    createdAt: Int
-    tags: [String]
-    timeline: String
     links: String
+    timeline: String
     pointOfContacts: String
+
+    numOfApplicants: Int
+    applications: [Application]
   }
 
   enum BountySortBy {
@@ -48,6 +60,8 @@ const typeDefs = gql`
   }
 
   type Query {
+    applications(bountyId: Int): [Application]
+
     bounty(id: Int): Bounty
     bounties(
       status: [String]
@@ -59,7 +73,7 @@ const typeDefs = gql`
     ): [Bounty]!
 
     profile(id: Int): Profile
-    profiles: [Profile]!
+    profiles(tags: [String], completedBounties: Int): [Profile]!
   }
 `
 
