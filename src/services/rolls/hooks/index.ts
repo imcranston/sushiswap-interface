@@ -22,13 +22,17 @@ export const useBounty = (params: { id: string }, config: SWRConfiguration = {})
 }
 
 export const useProfiles = (params: ProfileFilterParams, config: SWRConfiguration = {}) => {
-  return useSWR<Profile>(
+  return useSWR<Profile[]>(
     JSON.stringify(params),
-    async () => await fetcher<Profile, ProfileFilterParams>(bountiesQuery, params),
+    async () => await fetcher<Profile[], ProfileFilterParams>(bountiesQuery, params),
     config
   )
 }
 
-export const useProfile = (params: {}, config: SWRConfiguration = {}) => {
-  return useSWR<{}>(JSON.stringify(params), async () => await fetcher<{}, {}>(bountiesQuery, params), config)
+export const useProfile = (params: { id: string }, config: SWRConfiguration = {}) => {
+  return useSWR<Profile>(
+    JSON.stringify(params),
+    async () => await fetcher<Profile, { id: string }>(bountiesQuery, params),
+    config
+  )
 }

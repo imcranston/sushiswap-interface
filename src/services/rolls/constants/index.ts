@@ -1,14 +1,14 @@
 // Derived from gql schema in /services/rolls/constants/typeDefs
 
-export type Status = 'Ready to Work' | 'In Progress' | 'Closed' | 'Cancelled'
+export type Status = 'Open' | 'In Progress' | 'Closed' | 'Cancelled' | 'Hold'
 
-export type Skill = 'Art' | 'Design' | 'Engineering'
+export type Skill = 'Art' | 'Design' | 'Engineering' | 'Marketing' | 'Business'
 
 export type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced'
 
 export type EntryRequirement = 'Anyone' | 'Restricted'
 
-export type BountyRange = [0, 500] | [500, 3000] | [3000, 10000]
+export type BountyRange = [0, 500] | [500, 3000] | [3000, 100000]
 
 type Project = 'Interface' | 'MISO' | 'Trident' | 'Bento'
 
@@ -36,44 +36,38 @@ export interface Bounty {
   tags: string[]
   requirements: {
     entry: EntryRequirement
-    application: string
+    application?: string
   }
-  pointOfContacts: string
-  links: string
-  timeline: string
+  pointOfContacts?: string
+  links?: string
+  timeline?: string
 }
 
-export interface ProfileFilterParams {}
+export interface ProfileFilterParams {
+  skillTags: [String]
+  completedBounties: number
+}
 
 interface Contact {
   email?: string
   discord?: string
   twitter?: string
   medium?: string
+  github?: string
   emailVerified?: boolean
 }
-
-interface ENS {
-  domain?: string
-  image?: string
-}
-
 interface Wallet {
   provider?: string
   providerAccountId?: number
 }
-
-interface POAP {}
-
 export interface Profile {
   id: number
   address: string
   name: string
+  title: string
   contact?: Contact
-  ens?: ENS
   wallet: Wallet
   bio?: string
   skillTags: string[]
   previousBounties: Bounty[]
-  poaps: POAP[]
 }

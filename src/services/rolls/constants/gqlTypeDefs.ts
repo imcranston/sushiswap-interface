@@ -13,21 +13,15 @@ const typeDefs = gql`
     image: String
   }
 
-  type POAP {
-    id: String!
-    image: String
-  }
-
   type Profile {
     id: String
-    address: string
+    address: String
     name: String
     bio: String
     contact: Contact
     ens: ENS
     skillTags: [String]
     previousBounties: [Bounty]
-    poaps: [POAP]
   }
 
   type Bounty {
@@ -35,13 +29,9 @@ const typeDefs = gql`
     title: String!
     summary: String!
     tasks: String
-    requirements: {
-      entry: String
-      applications: String
-    }
     project: String
     skill: String
-    skillLevel: SkillLevel
+    skillLevel: String
     reward: Int
     rewardDenomination: String
     numOfApplicants: Int
@@ -52,12 +42,24 @@ const typeDefs = gql`
     pointOfContacts: String
   }
 
-  type Query {
-    bounty: Bounty
-    bounties: [Bounty]
+  enum BountySortBy {
+    CreationDate
+    RewardSize
+  }
 
-    user: Profile
-    users: [Profile]
+  type Query {
+    bounty(id: Int): Bounty
+    bounties(
+      status: [String]
+      skills: [String]
+      skillLevels: [String]
+      entryRequirements: [String]
+      bountyRange: [Int]
+      sortBy: BountySortBy
+    ): [Bounty]!
+
+    profile(id: Int): Profile
+    profiles: [Profile]!
   }
 `
 
