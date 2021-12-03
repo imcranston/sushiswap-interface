@@ -1,4 +1,5 @@
 import React from 'react'
+import { useBounties } from 'src/services/rolls'
 import Card from '../../components/Card'
 import {
   BlockCard,
@@ -11,6 +12,8 @@ import {
 } from '../../components/Rolls'
 
 const RollsLanding = () => {
+  const bounties = useBounties()
+
   return (
     <>
       <Section className="flex-col items-center pl-8 pr-8 bg-gray-500 h-80">
@@ -55,72 +58,11 @@ const RollsLanding = () => {
         </div>
 
         <div className="flex flex-row mt-4 ml-2 mr-2 space-x-5 overflow-x-auto">
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
+          {bounties.map((bounty) => (
+            <div key={`bounty-${bounty.id}`}>
+              <BountyCardLite {...bounty} />
+            </div>
+          ))}
         </div>
       </Section>
 
@@ -158,72 +100,11 @@ const RollsLanding = () => {
         </div>
 
         <div className="flex flex-row mt-4 ml-2 mr-2 space-x-5 overflow-x-auto">
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
-          <BountyCardLite
-            reward={500}
-            skill="Design"
-            tags="Design"
-            title="Mobile MISO UI"
-            createdAt="19 hours ago"
-            numOfApplicants={12}
-            isFavorite={false}
-            estimatedTime={20}
-            startDate={20}
-          />
+          {bounties.map((bounty) => (
+            <div key={`bounty-${bounty.id}`}>
+              <BountyCardLite {...bounty} />
+            </div>
+          ))}
         </div>
       </Section>
 

@@ -5,12 +5,14 @@ import { bountiesQuery, bountyQuery, ProfileQuery, ProfilesQuery } from '../quer
 
 const fetcher = async <T, K>(query: any, variables: K) => request<T>(`/api/graphql`, query, variables)
 
-export const useBounties = (params: BountyFilterParams, config: SWRConfiguration = {}) => {
-  return useSWR<Bounty[]>(
+export const useBounties = (params: BountyFilterParams = {}, config: SWRConfiguration = {}) => {
+  const request = useSWR<{ bounties: Bounty[] }>(
     JSON.stringify(params),
-    async () => await fetcher<Bounty[], BountyFilterParams>(bountiesQuery, params),
-    config
+    async () => await fetcher<{ bounties: Bounty[] }, BountyFilterParams>(bountiesQuery, params),
+    { fallbackData: [], ...config }
   )
+
+  return request.data?.bounties ?? []
 }
 
 export const useBounty = (params: { id: number }, config: SWRConfiguration = {}) => {
@@ -22,11 +24,13 @@ export const useBounty = (params: { id: number }, config: SWRConfiguration = {})
 }
 
 export const useProfiles = (params: ProfileFilterParams, config: SWRConfiguration = {}) => {
-  return useSWR<Profile[]>(
+  const { data } = useSWR<{ profiles: Profile[] }>(
     JSON.stringify(params),
-    async () => await fetcher<Profile[], ProfileFilterParams>(ProfilesQuery, params),
-    config
+    async () => await fetcher<{ profiles: Profile[] }, ProfileFilterParams>(ProfilesQuery, params),
+    { fallbackData: [], ...config }
   )
+
+  return data?.profiles ?? []
 }
 
 export const useProfile = (params: { id: number }, config: SWRConfiguration = {}) => {

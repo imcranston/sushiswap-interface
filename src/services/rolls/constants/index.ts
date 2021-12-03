@@ -45,7 +45,7 @@ export interface Bounty {
   skillLevel: SkillLevel
   reward: number
   rewardDenomination: RewardDenomination
-  createdAt: number
+  createdAt: string
   tags: string[]
   entryRequirements: EntryRequirement
 
@@ -105,7 +105,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -119,7 +119,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -133,7 +133,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -147,7 +147,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -161,7 +161,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -175,7 +175,7 @@ export const mockBounties = [
     summary: 'designer needed for redesign starting soon',
     tags: ['design', 'miso'],
     project: 'MISO',
-    createdAt: new Date().getTime(),
+    createdAt: new Date().getTime().toString(),
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,

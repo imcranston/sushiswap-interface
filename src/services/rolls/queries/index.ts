@@ -9,9 +9,20 @@ export const bountiesQuery = gql`
     $bountyRange: [Int]
     $sortBy: BountySortBy
   ) {
-    bounties(status: $status) {
+    bounties(
+      status: $status
+      skills: $skills
+      skillLevels: $skillLevels
+      entryRequirements: $entryRequirements
+      bountyRange: $bountyRange
+      sortBy: $sortBy
+    ) {
       title
       reward
+      project
+      numOfApplicants
+      tags
+      createdAt
     }
   }
 `

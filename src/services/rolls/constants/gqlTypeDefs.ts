@@ -40,7 +40,7 @@ const typeDefs = gql`
     skillLevel: String!
     reward: Int!
     rewardDenomination: String!
-    createdAt: Int! # unix timestamp
+    createdAt: String # unix timestamp
     tags: [String]!
 
     title: String
