@@ -381,7 +381,7 @@ const BountyCard: React.FC<Partial<Bounty>> = ({
   reward,
   numOfApplicants,
   estimatedTime,
-  startedAt,
+  startDate,
 }): JSX.Element => {
   return (
     <div className="flex flex-col justify-center w-full h-64 pl-8 pr-8 mt-4 mb-4 rounded min-w-max bg-dark-900 gap-y-6">
@@ -402,7 +402,7 @@ const BountyCard: React.FC<Partial<Bounty>> = ({
           </div>
 
           <div className="flex flex-row items-center w-full gap-x-4">
-            <div className="text-lg text-pink">{startedAt}</div>
+            <div className="text-lg text-pink">{startDate}</div>
             <div className="text-lg text-white">{skillLevel}</div>
             <div>{`${createdAt} | ${numOfApplicants} Applicants`}</div>
           </div>

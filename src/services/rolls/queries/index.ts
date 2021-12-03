@@ -23,7 +23,7 @@ export const bountiesQuery = gql`
       numOfApplicants
       tags
       createdAt
-      startedAt
+      startDate
     }
   }
 `

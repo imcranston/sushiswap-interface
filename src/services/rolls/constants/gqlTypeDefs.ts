@@ -41,7 +41,7 @@ const typeDefs = gql`
     reward: Int!
     rewardDenomination: String!
     createdAt: String # unix timestamp
-    startedAt: String # unix timestamp
+    startDate: String # unix timestamp
     estimatedTime: Int # hours
     tags: [String]!
 
