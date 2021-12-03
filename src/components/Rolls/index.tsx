@@ -4,32 +4,17 @@ import Link from 'next/link'
 import { Popover } from '@headlessui/react'
 import QuestionHelper from '../QuestionHelper'
 import { t } from '@lingui/macro'
-import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
-import { useETHBalances } from '../../state/wallet/hooks'
+
 import { useLingui } from '@lingui/react'
 import Typography from '../Typography'
 import { i18n } from '@lingui/core'
 import { classNames } from '../../functions'
 import { Search as SearchIcon } from 'react-feather'
-import { useFuse } from '../../hooks'
+import useFuse from '../../hooks/useFuse'
 import Card from '../../components/Card'
 import Checkbox from '../Checkbox'
 import NeonSelect, { NeonSelectItem } from '../Select'
-
-interface Bounty {
-  title?: string
-  description?: string
-  project?: string
-  tags: 'Design' | 'User Interface' | 'Mobile'
-  skill: string
-  skillLevel?: 'Beginner' | 'Intermediate' | 'Advanced'
-  reward: number
-  estimatedTime: any
-  startDate: any
-  numOfApplicants: number
-  isFavorite: boolean
-  createdAt: any
-}
+import { Bounty } from 'src/services/rolls'
 
 const Section: React.FC<{ className?: string }> = ({ className, children }) => {
   return <div className={`flex w-full ${className}`}>{children}</div>
@@ -42,7 +27,6 @@ const RollsCheckbox: React.FC<{ title; color; check; setCheck; help }> = ({
   setCheck,
   help,
 }: any) => {
-  // const allowedSlippage = useSwapSlippageTolerance(trade)
   return (
     <div className="flex items-center justify-between mb-2">
       <div className="flex items-center justify-between">
@@ -50,7 +34,6 @@ const RollsCheckbox: React.FC<{ title; color; check; setCheck; help }> = ({
         <span className="ml-2 mr-1 text-primary">{title}</span>
         <QuestionHelper text={help} />
       </div>
-      {/* {swap && <Settings placeholderSlippage={allowedSlippage} />} */}
     </div>
   )
 }
@@ -58,18 +41,15 @@ const RollsCheckbox: React.FC<{ title; color; check; setCheck; help }> = ({
 const Dropdown: FC = () => {
   const { i18n } = useLingui()
 
-  const handler = useCallback((e, item) => {}, [])
-
   return (
     <>
       <div className="flex items-center gap-3 cursor-pointer text-secondary">
         <div className="flex flex-row items-center">
           <span className="text-sm">{i18n._(t`Sort By`)}:</span>
-          {/* <QuestionHelper text={i18n._(t`Bounties will be sorted`)} /> */}
         </div>
         <NeonSelect value={'Most Recent'}>
           {Object.entries([]).map(([k, v]) => (
-            <NeonSelectItem key={k} value={k} onClick={handler}>
+            <NeonSelectItem key={k} value={k} onClick={() => {}}>
               {v}
             </NeonSelectItem>
           ))}
@@ -100,7 +80,7 @@ const BlockCard: React.FC<{ title: string; sub: string }> = ({ title, sub }) => 
   )
 }
 
-const BountyCardLite: React.FC<Bounty> = ({ skill, project, createdAt, numOfApplicants, tags, reward, isFavorite }) => {
+const BountyCardLite: React.FC<Partial<Bounty>> = ({ skill, project, createdAt, numOfApplicants, reward }) => {
   return (
     <div className="flex flex-col justify-center p-4 rounded min-w-max w-max bg-dark-900 h-36">
       <div className="flex flex-row items-center">
@@ -158,7 +138,7 @@ const UserPreview: React.FC<{ name: string; title: string; twitterHandle?: strin
   </div>
 )
 
-const ContentHeader: React.FC<{ bounties: any }> = ({ bounties = [] }): JSX.Element => {
+const ContentHeader: React.FC<{ bounties: Bounty[] }> = ({ bounties = [] }): JSX.Element => {
   const { options, data } = useMemo(() => {
     return {
       options: {
@@ -211,20 +191,17 @@ const ContentHeader: React.FC<{ bounties: any }> = ({ bounties = [] }): JSX.Elem
         />
       </div>
       <div className="flex flex-row mt-4 ml-2 mr-2 space-x-5 overflow-x-auto">
-        {bounties?.map((bounty, index) => (
+        {bounties.map((bounty, index) => (
           <BountyCardLite
-            description={bounty.description}
+            summary={bounty.summary}
             key={index}
             reward={bounty.reward}
             tags={bounty.tags}
             skill={bounty.skill}
             skillLevel={bounty.skillLevel}
             project={bounty.project}
-            startDate={bounty.startDate}
-            estimatedTime={bounty.estimatedTime}
             createdAt={bounty.createdAt}
             numOfApplicants={bounty.numOfApplicants}
-            isFavorite={bounty.isFavorite}
           />
         ))}
       </div>
@@ -233,13 +210,7 @@ const ContentHeader: React.FC<{ bounties: any }> = ({ bounties = [] }): JSX.Elem
 }
 
 const BreadCrumbBar: React.FC = (): JSX.Element => {
-  const { i18n } = useLingui()
-  const { account, chainId, library } = useActiveWeb3React()
-
-  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-
   return (
-    //     // <header className="flex flex-row justify-between w-screen flex-nowrap">
     <div className="flex-shrink-0 w-full">
       <Popover.Panel className="sm:hidden">
         <div className="flex flex-col px-4 pt-2 pb-3 space-y-1">
@@ -399,32 +370,18 @@ const SideBar: React.FC = (): JSX.Element => {
   )
 }
 
-const BountyCard: React.FC<{
-  title
-  description
-  tags
-  project
-  createdAt
-  startDate
-  estimatedTime
-  skill
-  skillLevel
-  reward
-  numOfApplicants
-  isFavorite
-}> = ({
+const BountyCard: React.FC<Partial<Bounty>> = ({
   title,
-  description,
+  summary,
   tags,
   project,
   createdAt,
-  startDate,
-  estimatedTime,
   skill,
   skillLevel,
   reward,
   numOfApplicants,
-  isFavorite,
+  estimatedTime,
+  startDate,
 }): JSX.Element => {
   return (
     <div className="flex flex-col justify-center w-full h-64 pl-8 pr-8 mt-4 mb-4 rounded min-w-max bg-dark-900 gap-y-6">
@@ -436,10 +393,7 @@ const BountyCard: React.FC<{
         </div>
         <div className="flex flex-col w-full">
           <div className="flex flex-row items-center gap-x-4">
-            <h1 className="text-xl font-extrabold text-white">
-              {/* <h1 className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue to-pink"> */}
-              {title}
-            </h1>
+            <h1 className="text-xl font-extrabold text-white">{title}</h1>
             <h4 className="text-lg text-white">{project}</h4>
           </div>
           <div className="flex flex-row items-center gap-x-4">
@@ -458,7 +412,7 @@ const BountyCard: React.FC<{
         </div>
       </div>
       <div className="flex flex-row items-center flex-start">
-        <div className="text-white text-md">{description}</div>
+        <div className="text-white text-md">{summary}</div>
       </div>
       <div className="flex flex-row items-center flex-start gap-x-5">
         {tags?.map((tag, index) => (
@@ -473,8 +427,7 @@ const BountyCard: React.FC<{
     </div>
   )
 }
-const BountyList: React.FC<{ bounties: any; totalBounties: number }> = ({
-  children,
+const BountyList: React.FC<{ bounties: Bounty[]; totalBounties: number }> = ({
   bounties,
   totalBounties,
 }): JSX.Element => {
@@ -483,40 +436,38 @@ const BountyList: React.FC<{ bounties: any; totalBounties: number }> = ({
       <div className="flex flex-row justify-between w-full">
         <Typography variant="h3" className={'text-primary'}>
           {totalBounties} Bounties
+          {bounties.length} Bounties
         </Typography>
         <Dropdown />
       </div>
       <div className="w-full">
-        {bounties?.map((bounty, index) => {
+        {bounties.map((bounty, index) => {
           const {
+            id,
             title,
-            description,
             project,
             tags,
             skill,
-            reward,
-            estimatedTime,
-            startDate,
             skillLevel,
-            createdAt,
+            reward,
+            rewardDenomination,
             numOfApplicants,
-            isFavorite,
+            summary,
+            createdAt,
           } = bounty
+
           return (
             <BountyCard
-              key={index}
+              key={id}
               title={title}
-              description={description}
+              summary={summary}
               project={project}
               tags={tags}
               skill={skill}
               skillLevel={skillLevel}
               reward={reward}
-              estimatedTime={estimatedTime}
-              startDate={startDate}
               createdAt={createdAt}
               numOfApplicants={numOfApplicants}
-              isFavorite={isFavorite}
             />
           )
         })}
