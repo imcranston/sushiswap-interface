@@ -46,6 +46,8 @@ export interface Bounty {
   reward: number
   rewardDenomination: RewardDenomination
   createdAt: string
+  startedAt?: string
+  estimatedTime?: number
   tags: string[]
   entryRequirements: EntryRequirement
 
@@ -106,6 +108,8 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -120,6 +124,9 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
+
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -134,6 +141,8 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -148,6 +157,8 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -162,6 +173,8 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,
@@ -176,6 +189,8 @@ export const mockBounties = [
     tags: ['design', 'miso'],
     project: 'MISO',
     createdAt: new Date().getTime().toString(),
+    startedAt: new Date().getTime().toString(),
+    estimatedTime: 4,
     skill: 'Design',
     skillLevel: 'Intermediate',
     reward: 3000,

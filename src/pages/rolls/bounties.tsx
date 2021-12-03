@@ -18,7 +18,7 @@ const BountiesPage = () => {
         <ContentHeader bounties={bounties} />
         <div className="flex flex-row mt-4 ml-2 mr-2 space-x-2 overflow-x-auto">
           <SideBar />
-          <BountyList bounties={bounties} />
+          <BountyList bounties={bounties} totalBounties={bounties.length} />
         </div>
       </div>
     </Container>

@@ -380,6 +380,8 @@ const BountyCard: React.FC<Partial<Bounty>> = ({
   skillLevel,
   reward,
   numOfApplicants,
+  estimatedTime,
+  startedAt,
 }): JSX.Element => {
   return (
     <div className="flex flex-col justify-center w-full h-64 pl-8 pr-8 mt-4 mb-4 rounded min-w-max bg-dark-900 gap-y-6">
@@ -396,11 +398,11 @@ const BountyCard: React.FC<Partial<Bounty>> = ({
           </div>
           <div className="flex flex-row items-center gap-x-4">
             <div className="text-lg text-pink">{`${reward} DAI / ${reward} USD`}</div>
-            <div className="text-lg text-white">{0}</div>
+            <div className="text-lg text-white">{estimatedTime}</div>
           </div>
 
           <div className="flex flex-row items-center w-full gap-x-4">
-            <div className="text-lg text-pink">{createdAt}</div>
+            <div className="text-lg text-pink">{startedAt}</div>
             <div className="text-lg text-white">{skillLevel}</div>
             <div>{`${createdAt} | ${numOfApplicants} Applicants`}</div>
           </div>
@@ -425,11 +427,15 @@ const BountyCard: React.FC<Partial<Bounty>> = ({
     </div>
   )
 }
-const BountyList: React.FC<{ bounties: Bounty[] }> = ({ bounties }): JSX.Element => {
+const BountyList: React.FC<{ bounties: Bounty[]; totalBounties: number }> = ({
+  bounties,
+  totalBounties,
+}): JSX.Element => {
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between w-full">
         <Typography variant="h3" className={'text-primary'}>
+          {totalBounties} Bounties
           {bounties.length} Bounties
         </Typography>
         <Dropdown />
