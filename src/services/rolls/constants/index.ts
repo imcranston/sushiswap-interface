@@ -1,16 +1,34 @@
-export type Status = 'Open' | 'In Progress' | 'Closed' | 'Cancelled' | 'Hold'
+const ALL_STATUS = ['Open', 'In Progress', 'Closed', 'Cancelled', 'Hold'] as const
+type StatusTuple = typeof ALL_STATUS
+type Status = StatusTuple[number]
 
-export type Skill = 'Art' | 'Design' | 'Engineering' | 'Marketing' | 'Business'
+const ALL_SKILL = ['Art', 'Design', 'Engineering', 'Marketing', 'Business'] as const
+type SkillTuple = typeof ALL_SKILL
+type Skill = SkillTuple[number]
 
-export type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced'
+const ALL_SKILL_LEVELS = ['Beginner', 'Intermediate', 'Advanced'] as const
+type SkillLevelsTuple = typeof ALL_SKILL_LEVELS
+type SkillLevel = SkillLevelsTuple[number]
 
-export type EntryRequirement = 'Anyone' | 'Restricted'
+const ALL_ENTRY_REQUIREMENTS = ['Anyone', 'Restricted'] as const
+type EntryRequirementsTuple = typeof ALL_ENTRY_REQUIREMENTS
+type EntryRequirement = EntryRequirementsTuple[number]
 
-export type BountyRange = [0, 500] | [500, 3000] | [3000, 100000]
+const ALL_BOUNTY_RANGES = [
+  [0, 500],
+  [500, 3000],
+  [3000, 100000],
+] as const
+type BountyRangesTuple = typeof ALL_BOUNTY_RANGES
+type BountyRange = BountyRangesTuple[number]
 
-type Project = 'Interface' | 'MISO' | 'Trident' | 'Bento'
+const ALL_PROJECTS = ['Interface', 'MISO', 'Trident', 'Bento'] as const
+type ProjectsTuple = typeof ALL_PROJECTS
+type Project = ProjectsTuple[number]
 
-type RewardDenomination = 'USDC' | 'DAI' | 'SUSHI'
+const REWARD_DENOMINATIONS = ['SUSHI', 'DAI', 'USDC'] as const
+type RewardDenominationsTuple = typeof REWARD_DENOMINATIONS
+type RewardDenomination = RewardDenominationsTuple[number]
 
 export interface BountyFilterParams {
   status?: Status[]
